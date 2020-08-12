@@ -1,10 +1,8 @@
 package com.ademir.cupons.controllers;
 
 import java.net.URI;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,6 +11,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -109,13 +108,12 @@ public class CupomController {
 			@RequestParam(value = "orderBy", defaultValue = "dataCadastro") String orderBy, 
 			@RequestParam(value = "direction", defaultValue = "DESC") String direction) {
 		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		//String dataStart = data1;
-		//String dateEnd = "16/08/2016";
+		String iau1 = data1.toString();
+		String iau2 = data2.toString();
 
-		//convert String to LocalDate
-		LocalDate localDate1 = LocalDate.parse(data1, formatter);
-		LocalDate localDate2 = LocalDate.parse(data2, formatter);
+		LocalDate localDate1 = LocalDate.parse(iau1, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		LocalDate localDate2 = LocalDate.parse(iau2, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		
 		
 		Page<Cupom> list = cupomService.pesquisarPorIntervaloDeDatas(localDate1, localDate2, page, linhasPorPagina, orderBy, direction);
 		Page<CupomDTO> listDTO = list.map(obj -> new CupomDTO(obj));

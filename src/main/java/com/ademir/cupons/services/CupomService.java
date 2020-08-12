@@ -90,6 +90,6 @@ public class CupomService {
 	
 	public Page<Cupom> pesquisarPorIntervaloDeDatas(LocalDate data1, LocalDate data2, Integer page, Integer linhasPorPagina, String orderBy, String direction){
 		PageRequest pageRequest = PageRequest.of(page, linhasPorPagina, Direction.valueOf(direction), orderBy);
-		return cupomRepository.findByDataExpiracaoBetween(data1, data2, pageRequest);
+		return cupomRepository.findByDataExpiracao(data1, data2, pageRequest);
 	}
 }

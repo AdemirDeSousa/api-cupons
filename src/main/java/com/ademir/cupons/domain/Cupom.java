@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +29,7 @@ public class Cupom implements Serializable{
 	private String descricao;
 	private String valor;
 	private String situacao;
+	
 	private LocalDate dataExpiracao;
 	private LocalDate dataCadastro;
 	private LocalDate dataUso;

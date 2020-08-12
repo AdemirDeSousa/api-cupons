@@ -7,28 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.ademir.cupons.domain.Cupom;
 import com.ademir.cupons.repositories.CupomRepository;
 
+@EnableWebMvc
 @SpringBootApplication
-public class CuponsApplication implements CommandLineRunner{
+public class CuponsApplication implements WebMvcConfigurer{
 	
-	@Autowired
-	private CupomRepository cupomRepository;
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE");
+	}
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CuponsApplication.class, args);
-	}
-
-	@Override
-	public void run(String... args) throws Exception {
-		
-		LocalDate localDate = LocalDate.parse("28/05/1999", DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-		
-		Cupom cupom_1 = new Cupom(null,"IAU", "Cupom Iau", "20 Reais", "Expirado", localDate, localDate, LocalDate.now());
-		
-		cupomRepository.save(cupom_1);
 	}
 
 }
